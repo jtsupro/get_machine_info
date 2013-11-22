@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+sub diskInfo(){
+	my @disks = `sudo fdisk -l | grep "Disk.*/dev"`;
+	my $num_disks = @disks;
+	chomp(@disks);
+	print "There are total $num_disks disk(s)\n";
+	foreach my $disk (@disks){
+		print "$disk\n";
+	}
+}
+
+my $distroNix = `uname -a`;
+if ($distroNix =~ /Ubuntu/){
+	print "This is Ubuntu machine\n";
+	diskInfo();
+}
+else {
+	print "This is not Ubuntu machine\n";
+	diskInfo();
+}
+
